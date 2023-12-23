@@ -14,6 +14,49 @@ func main() {
 	rst := make([]int, len(nums))
 	records := [11]int{}
 
+	students := []struct {
+		Name   string
+		Height float64
+	}{
+		{
+			Name:   "Keyle",
+			Height: 173.4,
+		},
+		{
+			Name:   "Ken",
+			Height: 164.5,
+		},
+		{
+			Name:   "Ryu",
+			Height: 178.8,
+		},
+		{
+			Name:   "Honda",
+			Height: 154.2,
+		},
+		{
+			Name:   "Hwarang",
+			Height: 188.8,
+		},
+		{
+			Name:   "Lebron",
+			Height: 209.9,
+		},
+		{
+			Name:   "Hodong",
+			Height: 197.7,
+		},
+		{
+			Name:   "Tom",
+			Height: 164.8,
+		},
+	}
+	var HeightMap [3000][]string
+	for i := 0; i < len(students); i++ {
+		idx := int(students[i].Height * 10)
+		HeightMap[idx] = append(HeightMap[idx], students[i].Name)
+	}
+
 	for i := 0; i < len(nums); i++ {
 		records[nums[i]]++
 	}
@@ -38,8 +81,8 @@ func main() {
 	words := strings.Fields(input)
 	from, _ := strconv.Atoi(words[0])
 	to, _ := strconv.Atoi(words[1])
-	findSpecificLenStudents(from, to, &lenArr)
-
+	r := findSpecificLenStudents(from, to, &lenArr)
+	fmt.Print(*r)
 }
 
 func findFrequentAlphabetFromArray(arr *[]string) string {
@@ -57,6 +100,12 @@ func findFrequentAlphabetFromArray(arr *[]string) string {
 	return frequent
 }
 
-func findSpecificLenStudents(minLen int, maxLen int, arr *[]int) {
-
+func findSpecificLenStudents(minLen int, maxLen int, arr *[]int) *[]int {
+	rst := make([]int, 0, len(*arr))
+	for _, val := range *arr {
+		if maxLen >= val && minLen <= val {
+			rst = append(rst, val)
+		}
+	}
+	return &rst
 }
