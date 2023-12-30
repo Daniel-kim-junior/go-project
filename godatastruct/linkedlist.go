@@ -5,8 +5,8 @@ type Item interface {
 
 type Node struct {
 	Data     Item
-	nextNode *Node
-	preNode  *Node
+	NextNode *Node
+	PreNode  *Node
 }
 
 type LinkedList interface {
@@ -18,31 +18,31 @@ type LinkedList interface {
 }
 
 type DoubleLinkedList struct {
-	rootNode *Node
-	tailNode *Node
+	RootNode *Node
+	TailNode *Node
 	len      int
 }
 
 func (d *DoubleLinkedList) PushBack(node Item) {
 	d.len++
 	newNode := &Node{node, nil, nil}
-	if d.rootNode == nil {
-		d.rootNode = newNode
-		d.tailNode = newNode
+	if d.RootNode == nil {
+		d.RootNode = newNode
+		d.TailNode = newNode
 		return
 	}
-	d.tailNode.nextNode, newNode.preNode, d.tailNode = newNode, d.tailNode, newNode
+	d.TailNode.NextNode, newNode.PreNode, d.TailNode = newNode, d.TailNode, newNode
 }
 
 func (d *DoubleLinkedList) PushFront(node Item) {
 	d.len++
 	newNode := &Node{node, nil, nil}
-	if d.rootNode == nil {
-		d.rootNode = newNode
-		d.tailNode = newNode
+	if d.RootNode == nil {
+		d.RootNode = newNode
+		d.TailNode = newNode
 		return
 	}
-	d.rootNode.preNode, newNode.nextNode, d.rootNode = newNode, d.rootNode, newNode
+	d.RootNode.PreNode, newNode.NextNode, d.RootNode = newNode, d.RootNode, newNode
 }
 
 func (d *DoubleLinkedList) PopFront() *Node {
@@ -50,8 +50,8 @@ func (d *DoubleLinkedList) PopFront() *Node {
 		return nil
 	}
 	d.len--
-	popNode := d.rootNode
-	d.rootNode, d.rootNode.nextNode.preNode = d.rootNode.nextNode, nil
+	popNode := d.RootNode
+	d.RootNode, d.RootNode.NextNode.PreNode = d.RootNode.NextNode, nil
 	return popNode
 }
 
@@ -60,8 +60,8 @@ func (d *DoubleLinkedList) PopBack() *Node {
 		return nil
 	}
 	d.len--
-	popNode := d.tailNode
-	d.tailNode, d.tailNode.nextNode = d.tailNode.preNode, nil
+	popNode := d.TailNode
+	d.TailNode, d.TailNode.NextNode = d.TailNode.PreNode, nil
 	return popNode
 }
 

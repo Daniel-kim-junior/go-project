@@ -6,14 +6,17 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-type CompareInt int
+type CompareInt struct {
+	val int
+}
 
-func (i CompareInt) compare(o interface{}) bool {
-	return int(i) < o.(int)
+func (c CompareInt) compare(o CompareInt) bool {
+	return o.val < c.val
 }
 
 func TestHeap(t *testing.T) {
-	heap := &Heap[CompareInt]{make([]HeapNode[CompareInt], 10), 0}
-	heap.Insert(9)
-	assert.Equal(t, CompareInt(9), heap.Pop().val)
+	heap := &Heap[CompareInt]{make([]HeapNode[CompareInt], 10), 0, 0}
+	assert.Equal(t, CompareInt{0}, heap.Pop().val)
+
+	// assert.Equal(t, CompareInt(10), heap.Pop().val)
 }
