@@ -7,9 +7,11 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+
+	ds "github.com/Daniel-kim-junior/go-project/godatasturct"
 )
 
-type NodeList []Node
+type NodeList []ds.Node
 
 func (n NodeList) Len() int {
 	return len(n)
@@ -70,14 +72,14 @@ func BFS(miniMap [][]int, size int) {
 	shark := []int{x, y}
 	hashMap := make(map[int]int)
 	dir := [][]int{{-1, 0}, {0, -1}, {0, 1}, {1, 0}}
-	queue := &DoubleLinkedList{}
+	queue := &ds.DoubleLinkedList{}
 	queue.PushFront(shark)
 	sharkSize := 2
-	cur := queue.rootNode
+	cur := queue.RootNode
 	var xy []int
 	var visited [][]bool
 	var row []bool
-	for ; cur != nil; cur = cur.nextNode {
+	for ; cur != nil; cur = cur.NextNode {
 		xy = NtoShark(cur)
 		willEat := 0
 		for i := 0; i < size; i++ {
@@ -97,12 +99,12 @@ func BFS(miniMap [][]int, size int) {
 				visited[i] = row[i*size : (i+1)*size]
 			}
 			tmpList := NodeList{}
-			innerQueue := &DoubleLinkedList{}
+			innerQueue := &ds.DoubleLinkedList{}
 			innerQueue.PushBack([]int{xy[0], xy[1], 0})
 			visited[xy[0]][xy[1]] = true
-			innerCur := innerQueue.rootNode
+			innerCur := innerQueue.RootNode
 
-			for ; innerCur != nil; innerCur = innerCur.nextNode {
+			for ; innerCur != nil; innerCur = innerCur.NextNode {
 				l := NtoShark(innerCur)
 				for k := 0; k < 4; k++ {
 					lx := l[0] + dir[k][0]
@@ -112,7 +114,7 @@ func BFS(miniMap [][]int, size int) {
 					}
 					visited[lx][ly] = true
 					if miniMap[lx][ly] != 0 && miniMap[lx][ly] < sharkSize {
-						tmpList = append(tmpList, Node{[]int{lx, ly, l[2] + 1}, nil, nil})
+						tmpList = append(tmpList, ds.Node{[]int{lx, ly, l[2] + 1}, nil, nil})
 					}
 					innerQueue.PushBack([]int{lx, ly, l[2] + 1})
 				}
@@ -135,6 +137,6 @@ func BFS(miniMap [][]int, size int) {
 
 }
 
-func NtoShark(node *Node) []int {
+func NtoShark(node *ds.Node) []int {
 	return node.Data.([]int)
 }
