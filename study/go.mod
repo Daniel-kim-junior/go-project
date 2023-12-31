@@ -1,4 +1,4 @@
-module github.com/Daniel-kim-junior/singlelinkedlist
+module github.com/Daniel-kim-junior/go-project/study
 
 go 1.21.5
 

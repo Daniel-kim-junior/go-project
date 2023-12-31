@@ -102,9 +102,9 @@ func findFrequentAlphabetFromArray(arr *[]string) string {
 
 func findSpecificLenStudents(minLen int, maxLen int, arr *[]int) *[]int {
 	rst := make([]int, 0, len(*arr))
-	for _, val := range *arr {
-		if maxLen >= val && minLen <= val {
-			rst = append(rst, val)
+	for _, Val := range *arr {
+		if maxLen >= Val && minLen <= Val {
+			rst = append(rst, Val)
 		}
 	}
 	return &rst

@@ -4,7 +4,7 @@ import "fmt"
 
 type Node[T any] struct {
 	next *Node[T]
-	val  T
+	Val  T
 }
 
 func Append[T any](rNode *Node[T], lNode *Node[T]) *Node[T] {
@@ -21,7 +21,7 @@ func main() {
 	}
 
 	for n := root; n != nil; n = n.next {
-		fmt.Printf("val %d\n", n.val)
+		fmt.Printf("Val %d\n", n.Val)
 	}
 	fmt.Println()
 	fmt.Println()
@@ -29,7 +29,7 @@ func main() {
 	tmp := root.next.next
 	Append(root.next, &Node[int]{tmp, 100})
 	for n := root; n != nil; n = n.next {
-		fmt.Printf("val %d\n", n.val)
+		fmt.Printf("Val %d\n", n.Val)
 	}
 
 }
